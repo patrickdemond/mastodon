@@ -41,9 +41,9 @@ class contact_report extends \cenozo\ui\widget\base_report
     $this->add_restriction( 'uid_list' );
     
     $this->set_variable( 'description',
-      'This report serves as a utility to provide the active mailing address for an arbitrary '.
-      'list of participants.  UIDs must be separated by a comma or space and may be qualified '.
-      'by single or double quotes (ie: A123456 B123456 C123456).' );
+      'This report serves as a utility to provide the active mailing and email address for an '.
+      'arbitrary list of participants.  UIDs must be separated by a comma or space and may be '.
+      'qualified by single or double quotes (ie: A123456 B123456 C123456).' );
   }
 
   /**

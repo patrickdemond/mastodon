@@ -69,6 +69,7 @@ class contact_report extends \cenozo\ui\pull\base_report
              'postcode, '.
              'region.country, '.
              'IFNULL( state.name, "None" ) AS state, '.
+             'IFNULL( email, "" ) AS email, '.
              'IF( temp_last_consent.consent_id IS NULL, '.
                  '"None", '.
                  'CONCAT( '.
