@@ -89,7 +89,6 @@ class mailout_report extends \cenozo\ui\pull\base_report
       $participant_mod->where( 'participant.cohort_id', '=', $db_cohort->id );
     if( !is_null( $db_source ) )
       $participant_mod->where( 'participant.source_id', '=', $db_source->id );
-    $participant_mod->where( 'IFNULL( participant_last_consent.accept, true )', '=', true );
 
     $sql = sprintf(
       'SELECT DISTINCT participant.id FROM participant '.
@@ -131,6 +130,7 @@ class mailout_report extends \cenozo\ui\pull\base_report
     }
 
     $sql .= $participant_mod->get_sql();
+    $sql .= ' AND IFNULL( participant_last_consent.accept, true ) = true';
 
     $contents = array();
     $participant_id_list = $participant_class_name::db()->get_col( $sql );
