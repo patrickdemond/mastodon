@@ -89,9 +89,11 @@ class mailout_report extends \cenozo\ui\pull\base_report
       $participant_mod->where( 'participant.cohort_id', '=', $db_cohort->id );
     if( !is_null( $db_source ) )
       $participant_mod->where( 'participant.source_id', '=', $db_source->id );
+    $participant_mod->where( 'IFNULL( participant_last_consent.accept, true )', '=', true );
 
     $sql = sprintf(
       'SELECT DISTINCT participant.id FROM participant '.
+      'JOIN participant_last_consent ON participant.id = participant_last_consent.participant_id '.
       'JOIN event ON participant.id = event.participant_id '.
       'AND event.event_type_id = %s ',
       $database_class_name::format_string( $db_event_type->id ) );
