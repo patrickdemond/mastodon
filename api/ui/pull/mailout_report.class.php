@@ -92,7 +92,6 @@ class mailout_report extends \cenozo\ui\pull\base_report
 
     $sql = sprintf(
       'SELECT DISTINCT participant.id FROM participant '.
-      'JOIN participant_last_consent ON participant.id = participant_last_consent.participant_id '.
       'JOIN event ON participant.id = event.participant_id '.
       'AND event.event_type_id = %s ',
       $database_class_name::format_string( $db_event_type->id ) );
@@ -106,6 +105,11 @@ class mailout_report extends \cenozo\ui\pull\base_report
       $participant_mod->where( 'id', 'NOT IN', sprintf( '( %s )', $sql ), false );
       $sql = 'SELECT id FROM participant ';
     }
+
+    // don't include negative consent
+    $sql .= 'JOIN participant_last_consent '.
+            'ON participant.id = participant_last_consent.participant_id ';
+    $participant_mod->where( 'IFNULL( participant_last_consent.accept, true )', '=', true );
 
     if( !is_null( $db_collection ) )
       $sql .= 'JOIN collection_has_participant '.
@@ -130,7 +134,6 @@ class mailout_report extends \cenozo\ui\pull\base_report
     }
 
     $sql .= $participant_mod->get_sql();
-    $sql .= ' AND IFNULL( participant_last_consent.accept, true ) = true';
 
     $contents = array();
     $participant_id_list = $participant_class_name::db()->get_col( $sql );
