@@ -37,7 +37,7 @@ class withdraw_mailout_report extends \cenozo\ui\pull\base_report
   protected function build()
   {
     $event_type_class_name = lib::get_class_name( 'database\event_type' );
-    $database_class_name = lib::get_class_name( 'database\database' );
+    $db = lib::create( 'business\session' )->get_database();
     $participant_class_name = lib::get_class_name( 'database\participant' );
 
     $collection_id = $this->get_argument( 'restrict_collection_id' );
@@ -49,7 +49,7 @@ class withdraw_mailout_report extends \cenozo\ui\pull\base_report
       'SELECT DISTINCT participant.id FROM participant '.
       'JOIN event ON participant.id = event.participant_id '.
       'AND event.event_type_id = %s ',
-      $database_class_name::format_string( $db_event_type->id ) );
+      $db->format_string( $db_event_type->id ) );
 
     // create the participant modifier based on the withdraw script
     $participant_mod = lib::create( 'database\modifier' );

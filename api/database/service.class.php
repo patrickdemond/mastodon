@@ -121,8 +121,6 @@ class service extends \cenozo\database\service
    */
   public function release_participant( $modifier = NULL, $get_unreleased = false )
   {
-    $database_class_name = lib::get_class_name( 'database\database' );
-
     if( is_null( $modifier ) ) $modifier = lib::create( 'database\modifier' );
     $modifier->where( 'service_has_participant.datetime', '=', NULL );
 
@@ -134,14 +132,14 @@ class service extends \cenozo\database\service
       'INSERT INTO service_has_participant'.
       '( service_id, participant_id, create_timestamp, datetime ) '.
       'SELECT %s, participant.id, NULL, %s ',
-      $database_class_name::format_string( $this->id ),
-      $database_class_name::format_string( $datetime ) );
+      static::db()->format_string( $this->id ),
+      static::db()->format_string( $datetime ) );
 
     $event_sql = sprintf(
       'INSERT INTO event( participant_id, event_type_id, datetime ) '.
       'SELECT DISTINCT participant.id, %s, %s ',
-      $database_class_name::format_string( $this->release_event_type_id ),
-      $database_class_name::format_string( $datetime ) );
+      static::db()->format_string( $this->release_event_type_id ),
+      static::db()->format_string( $datetime ) );
 
     $table_sql = sprintf(
       'FROM participant '.
@@ -151,14 +149,14 @@ class service extends \cenozo\database\service
       'LEFT JOIN service_has_participant '.
       'ON service_has_participant.service_id = %s '.
       'AND service_has_participant.participant_id = participant.id %s',
-      $database_class_name::format_string( $this->id ),
-      $database_class_name::format_string( $this->id ),
+      static::db()->format_string( $this->id ),
+      static::db()->format_string( $this->id ),
       $modifier->get_sql() );
 
     $select_sql .= $table_sql;
     $insert_sql .= $table_sql
                 .  sprintf( ' ON DUPLICATE KEY UPDATE datetime = %s',
-                            $database_class_name::format_string( $datetime ) );
+                            static::db()->format_string( $datetime ) );
     $event_sql .= $table_sql;
 
     if( $get_unreleased )

@@ -61,7 +61,7 @@ class quota_report extends \cenozo\ui\pull\base_report
     $quota_class_name = lib::get_class_name( 'database\quota' );
     $participant_class_name = lib::get_class_name( 'database\participant' );
     $event_type_class_name = lib::get_class_name( 'database\event_type' );
-    $database_class_name = lib::get_class_name( 'database\database' );
+    $db = lib::create( 'business\session' )->get_database();
 
     $db_cohort = lib::create( 'database\cohort', $this->get_argument( 'cohort_id' ) );
     $low_education = $this->get_argument( 'low_education', false );
@@ -201,7 +201,7 @@ class quota_report extends \cenozo\ui\pull\base_report
       $completed_sql = sprintf(
         'SELECT participant.id FROM event '.
         'WHERE event.participant_id = participant.id AND event.event_type_id = %s',
-        $database_class_name::format_string( $db_completed_event_type->id ) );
+        $db->format_string( $db_completed_event_type->id ) );
 
       $completed_sql = '( '.$completed_sql.' )';
 
