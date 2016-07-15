@@ -36,6 +36,9 @@ $SETTINGS['path']['CONSENT_FORM'] = $SETTINGS['path']['APPLICATION'].'/doc/form/
 // the location of new contact forms which need to be processed
 $SETTINGS['path']['CONTACT_FORM'] = $SETTINGS['path']['APPLICATION'].'/doc/form/contact';
 
+// the location of new HIN forms which need to be processed
+$SETTINGS['path']['HIN_FORM'] = $SETTINGS['path']['APPLICATION'].'/doc/form/hin';
+
 // the location of new proxy forms which need to be processed
 $SETTINGS['path']['PROXY_FORM'] = $SETTINGS['path']['APPLICATION'].'/doc/form/proxy';
 
@@ -44,6 +47,9 @@ $SETTINGS['path']['CONSENT_FORM_DATA'] = $SETTINGS['path']['APPLICATION'].'/doc/
 
 // the location to store processed contact forms
 $SETTINGS['path']['CONTACT_FORM_DATA'] = $SETTINGS['path']['APPLICATION'].'/doc/data/contact';
+
+// the location to store processed HIN forms
+$SETTINGS['path']['HIN_FORM_DATA'] = $SETTINGS['path']['APPLICATION'].'/doc/data/hin';
 
 // the location to store processed proxy forms
 $SETTINGS['path']['PROXY_FORM_DATA'] = $SETTINGS['path']['APPLICATION'].'/doc/data/proxy';
