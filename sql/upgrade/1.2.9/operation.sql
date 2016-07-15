@@ -1,7 +1,7 @@
 SELECT "Adding new operations" AS "";
 
 INSERT IGNORE INTO operation( type, subject, name, restricted, description ) VALUES
-( "push", "proxy_form", "new", true, "Adds a new proxy form directly into the data entry system." ),
+( "push", "hin_form", "new", true, "Adds a new HIN form directly into the data entry system." ),
 ( "pull", "hin_form", "download", true, "Downloads a participant's scanned HIN form." ),
 ( "push", "hin_form", "adjudicate", true, "Adjudicates conflicts between two entries for a HIN form." ),
 ( "push", "hin_form", "edit", true, "Edits the details of a scanned HIN form." ),
