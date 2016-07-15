@@ -30,6 +30,7 @@ class hin_form extends base_form
 
     $database_class_name = lib::get_class_name( 'database\database' );
     $participant_class_name = lib::get_class_name( 'database\participant' );
+    $hin_class_name = lib::get_class_name( 'database\hin' );
 
     $db_participant = $participant_class_name::get_unique_record( 'uid', $db_hin_form_entry->uid );
 
